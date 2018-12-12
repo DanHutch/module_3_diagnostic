@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 feature "User can search by zipcode" do
-  scenario "and see stations within 6 miles" do
+	scenario "and see stations within 6 miles" do
+		stub_search_api_calls
     visit "/"
     within(".navbar") do
 			expect(page).to have_selector("input[value='Search by zip...']")

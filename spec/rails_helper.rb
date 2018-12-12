@@ -55,3 +55,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def stub_search_api_calls
+  stub_request(:get, "https://developer.nrel.gov/api/alt-fuel-stations/v1.json").to_return(body: File.read("./spec/fixtures/sample_search_response.json"))
+end
