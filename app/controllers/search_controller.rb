@@ -1,12 +1,15 @@
 class SearchController < ApplicationController
-  def index
- state = params[:state]
-  @conn = Faraday.new(url: "https://api.propublica.org") do |faraday|
-    faraday.headers["X-API-KEY"] = "S9JON3ruNOI6XiyymcnZ7gtsjnToPxuXyT0bgeaX"
-    faraday.adapter Faraday.default_adapter
-  end
+	def index
+		binding.pry
+	
+		zip = params[:q]
+		@conn = Faraday.new(url: "https://developer.nrel.gov/api") do |faraday|
+    	faraday.adapter Faraday.default_adapter
+		end
 
-  response = @conn.get("/congress/v1/members/house/#{state}/current.json")
+		response = @conn.get("/alt-fuel-stations/v1.json?fuel_type=LPG,ELEC&limit=10&api_key=IpgwjA6Gg04x0YYk64LetQqAhJ1Dw6ezeOVeZpg0&format=JSON&radius=6.0&zip=#{zip}")
 
-  @members = JSON.parse(response.body, symbolize_names: true)[:results]  end
+		@stations = JSON.parse(response.body, symbolize_names: true)
+	binding.pry
+ end
 end
