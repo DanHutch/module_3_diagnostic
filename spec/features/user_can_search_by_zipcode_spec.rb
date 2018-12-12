@@ -10,8 +10,9 @@ feature "User can search by zipcode" do
 			expect(current_path).to eq(search_path)
 			expect(page.body).to have_content("Nearby Stations:")
 			expect(page.body).to have_css(".stations")
+			save_and_open_page
 			within(".stations")
-			expect(page).to have_css(".station", count: 10)
+			expect(page).to have_css(".station", count: 2)
 			expect(page).to have_css(".station-name")
 			expect(page).to have_css(".station-address")
 			expect(page).to have_css(".station-fuel-types")
@@ -21,6 +22,3 @@ feature "User can search by zipcode" do
     end
   end
 end
-
-
-# And the stations should be limited to Electric and Propane
